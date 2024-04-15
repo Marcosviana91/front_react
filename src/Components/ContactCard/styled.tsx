@@ -9,6 +9,7 @@ const StyledContactCard = styled.div`
     display: flex;
     gap: 4px;
     cursor: pointer;
+    position:relative;
 
     img {
         height: 60px;
@@ -51,6 +52,8 @@ const StyledContactCard = styled.div`
             padding: 1px;
             font-size: 24px;
             line-height: 16px;
+            width: 30px;
+            height: 30px;
         }
     }
 `
