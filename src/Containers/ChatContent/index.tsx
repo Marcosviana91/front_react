@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { RootReducer } from '../../store';
+import { addSessionChat } from '../../store/reducers/sessionChats';
 
 import { useSendMessageMutation } from '../../store/api'
 
@@ -11,7 +14,9 @@ import ChatBoxes from '../../Components/ChatBoxes'
 
 
 function ChatContent(props: {receiverId: string, isVisible:boolean}) {
-    const [msgs, setMsgs] = useState<MSGProps[]>([])
+    const dispatch = useDispatch()
+    // const [msgs, setMsgs] = useState<MSGProps[]>([])
+    const msgs:MSGProps[] = useSelector((state: RootReducer) => state.sessionChats.contactChat).filter(chat => chat?.id===String(props.receiverId))[0]?.messages || []
     const [LastTimeStamp, setLastTimeStamp] = useState('')
     const [msgs_box, setMsgs_box] = useState<string[]>([''])
     const [sendMessage, { data: dataResponse }] = useSendMessageMutation()
@@ -21,10 +26,10 @@ function ChatContent(props: {receiverId: string, isVisible:boolean}) {
 
     let history_boxes = []
 
-    // Preenche a message box temporária
+    // Preenche a message box temporária com a resposta da API
     useEffect(() => {
         if (dataResponse) {
-            setMsgs([...msgs , dataResponse.data.newMessage])
+            dispatch(addSessionChat({...dataResponse.data.newMessage, receiverId:props.receiverId}))
         }
     }, [dataResponse])
 
@@ -52,7 +57,7 @@ function ChatContent(props: {receiverId: string, isVisible:boolean}) {
         <StyledChatContent style={{display: props.isVisible ? 'flex': 'none'}}>
             <div id='msgs_box'>
                 <div id='msg_box'>
-                    {msgs.map((msg) => {
+                    {msgs && msgs.map((msg) => {
                         return (<ChatMsg key={msg.timeStamp} timestamp={msg.timeStamp!} message={msg.message} sender={String(msg.senderId) === sessionStorage.getItem('user_id')! ? 'me' : 'others'} />)
                     })}
                 </div>

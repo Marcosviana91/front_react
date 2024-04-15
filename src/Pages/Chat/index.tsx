@@ -28,7 +28,7 @@ function ChatPage() {
                     })
                 }
             </div>
-            <Notifications />
+            {/* <Notifications /> */}
         </StyledChat>
     )
 }
