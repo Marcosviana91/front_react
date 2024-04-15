@@ -6,8 +6,10 @@ function useHandleWebSocketEvents() {
     const dispatch = useDispatch();
     var authToken = Cookies.get("authToken");
     
-    // alterar o user_name// const ws = new WebSocket(`ws${window.location.protocol === 'https:' ? 's' : ''}://${window.location.host}/ws`)
-    const ws = new WebSocket(`ws://127.0.0.1:8000/ws`)
+    // alterar o user_name
+    const ws = new WebSocket(`ws${window.location.protocol === 'https:' ? 's' : ''}://${window.location.host}/ws`)
+    // const ws = new WebSocket(`ws://127.0.0.1:8000/ws`)
+    // const ws = new WebSocket(`ws://marcosvianadev2.ddns.net:3133/ws`)
 
     ws.onopen = function(e) {
         ws.send(

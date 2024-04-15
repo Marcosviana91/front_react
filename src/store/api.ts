@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 const api = createApi({
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://127.0.0.1:8000'
+        baseUrl: 'http://marcosvianadev2.ddns.net:3133'
         // endereço da API
     }),
     endpoints: (builder) => ({
