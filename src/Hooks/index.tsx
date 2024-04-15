@@ -22,12 +22,18 @@ function useHandleWebSocketEvents() {
     ws.onmessage = async function ({ data }) {
         let payload = JSON.parse(data)
         console.log("Payload: ", payload) //Mostra DATA
-        try {
-            console.log(payload["content"]["message"])
-            dispatch(addSessionChat({...payload["content"]["message"], receiverId:"1"}))
-        }
-        catch (e) {
-            console.log("ERRO NO WS")
+        if ("type" in payload) {
+            switch (payload.type) {
+                case "newMessage":
+                    console.log("Mensagem recebida:")
+                    console.log(payload["content"]["message"])
+                    console.log(payload["content"]["message"]["senderId"])
+                    dispatch(addSessionChat({...payload["content"]["message"], receiverId:String(payload["content"]["message"]["senderId"])}))
+                    break;
+            
+                default:
+                    break;
+            }
         }
     }
 
