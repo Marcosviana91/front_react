@@ -1,7 +1,7 @@
 import { styled } from 'styled-components'
 
 const StyledChatContent = styled.div`
-    height: calc(100% - 36px);
+    height: calc(100% - 36px - 1px);
     background-color: #7a7a7a;
     display: flex;
     flex-direction: column;

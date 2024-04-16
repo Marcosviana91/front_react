@@ -2,6 +2,8 @@ import { useDispatch } from 'react-redux';
 import { setTabActiveUserID, remover } from '../../store/reducers/chatTabs'
 
 import StyledChatTab from "./styled"
+
+// Icons
 import { FaRegWindowClose } from "react-icons/fa";
 
 interface ChatTabProps {
